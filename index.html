@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>¡Emiliano Cumple 4! 🏁</title>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@400;700;800&family=Racing+Sans+One&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Racing+Sans+One&display=swap" rel="stylesheet">
+<style>
+/* ══════════════════════════════════════
+   PALETA OFICIAL BLAZE
+   --yellow:  #FFD30C
+   --orange:  #F6821F
+   --red:     #E42127
+   --blue:    #2370B8
+   --navy:    #2F3C98
+   --teal:    #12B4E5
+   --green:   #2AB888
+   --purple:  #5D2C87
+   --black:   #2D2824
+══════════════════════════════════════ */
+
+
+.card-main,
+.map-btn,
+.cd-title {
+  font-family: 'Racing Sans One', cursive;
+  text-transform: uppercase;
+}
+
+.ticker-item,
+.footer-text,
+.btn-enter,
+#intro h2 {
+  font-family: 'Bangers', cursive;
+}
+
+:root {
+  --yellow:  #FFD30C;
+  --orange:  #F6821F;
+  --red:     #E42127;
+  --blue:    #2370B8;
+  --navy:    #2F3C98;
+  --teal:    #12B4E5;
+  --green:   #2AB888;
+  --purple:  #5D2C87;
+  --black:   #2D2824;
+  --white:   #FFFFFF;
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+html, body {
+  width: 100%;
+  min-height: 100vh;
+  font-family: 'Nunito', sans-serif;
+  overflow-x: hidden;
+  background: var(--orange);
+}
+
+/* ══ INTRO SCREEN ══ */
+#intro {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: var(--navy);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  transition: opacity .7s ease, visibility .7s;
+}
+#intro.gone { opacity:0; visibility:hidden; pointer-events:none; }
+
+#intro img {
+  width: min(80vw, 340px);
+  filter: drop-shadow(0 0 30px var(--yellow));
+  animation: pulseLogo 1.4s ease-in-out infinite alternate;
+}
+@keyframes pulseLogo {
+  from { filter: drop-shadow(0 0 18px var(--yellow)); transform: scale(.97); }
+  to   { filter: drop-shadow(0 0 40px var(--orange)); transform: scale(1.03); }
+}
+
+.card-main,
+.map-btn,
+.cd-title {
+  font-family: 'Racing Sans One', cursive;
+}
+
+#intro h2 {
+  font-family: 'Bangers', cursive;
+  font-size: clamp(1.4rem, 5vw, 2rem);
+  color: var(--yellow);
+  letter-spacing: 4px;
+  text-align: center;
+}
+#intro p {
+  color: rgba(255,255,255,.65);
+  font-size: .9rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.btn-enter {
+  margin-top: 8px;
+  padding: 14px 44px;
+  background: linear-gradient(135deg, var(--orange), var(--red));
+  color: #fff;
+  border: 4px solid var(--yellow);
+  border-radius: 60px;
+  font-family: 'Bangers', cursive;
+  font-size: 1.6rem;
+  letter-spacing: 3px;
+  cursor: pointer;
+  animation: ringPulse 1.6s ease infinite;
+  transition: transform .15s;
+}
+.btn-enter:hover { transform: scale(1.05); }
+@keyframes ringPulse {
+  0%,100% { box-shadow: 0 0 0 0 rgba(255,211,12,.5); }
+  60%      { box-shadow: 0 0 0 16px rgba(255,211,12,0); }
+}
+
+/* ══ AUDIO BUTTON ══ */
+#audioBtn {
+  position: fixed;
+  top: 14px;
+  right: 14px;
+  z-index: 5000;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--red);
+  border: 3px solid var(--yellow);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 18px rgba(0,0,0,.4);
+  transition: transform .2s;
+  font-size: 22px;
+  animation: ringPulse 2s ease infinite;
+}
+#audioBtn:hover { transform: scale(1.12); }
+
+/* ══ PAGE ══ */
+.page {
+  width: 100%;
+  min-height: 100vh;
+  background:
+    repeating-conic-gradient(rgba(0,0,0,.055) 0% 25%, transparent 0% 50%)
+    0 0 / 44px 44px,
+    linear-gradient(160deg, var(--orange) 0%, #E8740A 60%, var(--red) 100%);
+}
+
+/* ══ WRAPPER ══ */
+.wrap {
+  max-width: 480px;
+  margin: 0 auto;
+  position: relative;
+}
+
+/* ══ HERO SECTION ══ */
+.hero {
+  position: relative;
+  width: 100%;
+  height: clamp(360px, 75vw, 520px);
+  overflow: hidden;
+}
+
+.hero-glow {
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120%;
+  height: 70%;
+  background: radial-gradient(ellipse 80% 60% at 40% 80%, rgba(255,150,0,.45) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    -15deg,
+    transparent 0px,
+    transparent 28px,
+    rgba(255,255,255,.045) 28px,
+    rgba(255,255,255,.045) 30px
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes logoFloat {
+  0%,100% { transform: translateY(0); }
+  50%     { transform: translateY(-8px); }
+}
+
+/* ── BLAZE truck ── */
+.blaze-wrap {
+  position: absolute;
+  bottom: 50px;       /* ← subir/bajar Blaze */
+  left: -5%;          /* ← mover izquierda/derecha */
+  width: 115%;         /* ← tamaño */
+  z-index: 2;
+}
+.blaze-wrap img {
+  width: 100%;
+  display: block;
+  filter: drop-shadow(6px 12px 24px rgba(0,0,0,.55));
+  animation: truckFloat 2.8s ease-in-out infinite;
+  transform-origin: bottom center;
+}
+@keyframes truckFloat {
+  0%,100% { transform: translateY(0) rotate(-1deg); }
+  50%      { transform: translateY(-10px) rotate(.8deg); }
+}
+
+/* ── LIAM character ── */
+.liam-wrap {
+  position: absolute;
+  bottom: 0;          /* ← subir/bajar Liam */
+  right: -2%;         /* ← mover derecha/izquierda */
+  width: 35%;         /* ← tamaño */
+  z-index: 4;
+}
+.liam-wrap img {
+  width: 100%;
+  display: block;
+  filter: drop-shadow(4px 8px 18px rgba(0,0,0,.6));
+  animation: liamFloat 2.2s ease-in-out infinite;
+  transform-origin: bottom center;
+}
+@keyframes liamFloat {
+  0%,100% { transform: translateY(0); }
+  50%      { transform: translateY(-7px); }
+}
+
+/* ── LOGO top-left ── */
+.logo-wrap {
+  position: absolute;
+  top: 12px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: 58%;
+  z-index: 5;
+  animation:
+    logoDropIn .9s cubic-bezier(.175,.885,.32,1.275) both,
+    logoFloat 2.5s ease-in-out infinite; /* 👈 movimiento continuo */
+}
+@keyframes logoDropIn {
+  from { transform: translateY(-60px) scale(.7); opacity: 0; }
+  to   { transform: translateY(0) scale(1); opacity: 1; }
+}
+.logo-wrap img {
+  width: 100%;
+  filter: drop-shadow(0 4px 16px rgba(0,0,0,.6));
+}
+
+/* ══ RED TICKER BAND ══ */
+.ticker-band {
+  width: 100%;
+  background: var(--red);               /* ← color banda */
+  border-top: 5px solid var(--yellow);
+  border-bottom: 5px solid var(--yellow);
+  padding: 10px 0;
+  overflow: hidden;
+}
+.ticker-inner {
+  display: flex;
+  width: max-content;
+  animation: scrollTicker 22s linear infinite; /* ← velocidad: más alto = más lento */
+}
+@keyframes scrollTicker {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.ticker-item {
+  font-family: 'Bangers', cursive;
+  font-size: 1.25rem;
+  color: var(--yellow);                  /* ← color texto ticker */
+  letter-spacing: 3px;
+  padding: 0 28px;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.ticker-item::after { content: '★'; color: var(--orange); font-size: .85em; }
+
+/* ══ CONTENT AREA ══ */
+.content {
+  padding: 22px 14px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* ══ CARD BASE ══ */
+.card {
+  border-radius: 18px;
+  border: 4px solid var(--yellow);      /* ← borde tarjetas */
+  box-shadow: 0 8px 28px rgba(0,0,0,.25);
+  overflow: hidden;
+  animation: slideUp .6s cubic-bezier(.175,.885,.32,1.275) both;
+}
+@keyframes slideUp {
+  from { transform: translateY(40px); opacity:0; }
+  to   { transform: translateY(0); opacity:1; }
+}
+
+/* ══ INFO CARDS ══ */
+.info-card {
+  background: #fff;                     /* ← fondo tarjetas info */
+  display: flex;
+  align-items: stretch;
+}
+.card-accent {
+  width: 8px;
+  flex-shrink: 0;
+  background: linear-gradient(180deg, var(--orange), var(--red)); /* ← barra lateral */
+}
+.card-body {
+  padding: 16px 18px;
+  flex: 1;
+}
+.card-eyebrow {
+  font-size: .72rem;
+  font-weight: 900;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--red);                    /* ← color subtítulo pequeño */
+  margin-bottom: 4px;
+}
+.card-main {
+  font-family: 'Bangers', cursive;
+  font-size: 1.65rem;
+  color: var(--navy);                   /* ← color texto principal tarjeta */
+  letter-spacing: 1.5px;
+  line-height: 1.15;
+}
+.card-sub {
+  font-size: .8rem;
+  font-weight: 800;
+  color: #666;
+  margin-top: 3px;
+}
+.card-icon {
+  width: 56px;
+  flex-shrink: 0;
+  background: linear-gradient(135deg, var(--yellow), var(--orange)); /* ← fondo ícono */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+}
+
+/* ══ MAP BUTTON ══ */
+.map-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 18px;
+  background: linear-gradient(135deg, var(--navy), var(--blue)); /* ← fondo botón mapa */
+  color: #fff;
+  border: 4px solid var(--yellow);
+  border-radius: 18px;
+  text-decoration: none;
+  font-family: 'Bangers', cursive;
+  font-size: 1.45rem;
+  letter-spacing: 3px;
+  box-shadow: 0 8px 28px rgba(0,0,0,.3);
+  animation: slideUp .6s cubic-bezier(.175,.885,.32,1.275) .55s both;
+  transition: transform .2s, box-shadow .2s;
+}
+.map-btn:hover { transform: translateY(-3px); box-shadow: 0 14px 36px rgba(0,0,0,.4); }
+.map-btn:active { transform: scale(.97); }
+.map-icon {
+  font-size: 1.4rem;
+  animation: bounce 1.4s ease infinite;
+}
+@keyframes bounce {
+  0%,100% { transform: translateY(0); }
+  50%      { transform: translateY(-5px); }
+}
+
+/* ══ COUNTDOWN ══ */
+.countdown-card {
+  background: linear-gradient(135deg, var(--red), #B5121B); /* ← fondo cuenta regresiva */
+  border: 4px solid var(--yellow);
+  border-radius: 18px;
+  padding: 20px 16px;
+  text-align: center;
+  box-shadow: 0 8px 28px rgba(0,0,0,.3);
+  animation: slideUp .6s cubic-bezier(.175,.885,.32,1.275) .7s both;
+}
+.cd-title {
+  font-family: 'Bangers', cursive;
+  font-size: 1rem;
+  color: var(--yellow);
+  letter-spacing: 4px;
+  margin-bottom: 16px;
+}
+.cd-grid {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+.cd-box {
+  background: rgba(0,0,0,.3);
+  border: 2px solid rgba(255,211,12,.4);
+  border-radius: 14px;
+  padding: 10px 14px;
+  min-width: 62px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.cd-num {
+  font-family: 'Bangers', cursive;
+  font-size: 2.5rem;
+  color: #fff;
+  line-height: 1;
+  text-shadow: 0 3px 10px rgba(0,0,0,.4);
+}
+.cd-lbl {
+  font-size: .62rem;
+  font-weight: 900;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--yellow);
+  margin-top: 4px;
+}
+
+/* ══ FOOTER ══ */
+.footer {
+  text-align: center;
+  padding: 10px 16px 0;
+  animation: slideUp .6s cubic-bezier(.175,.885,.32,1.275) .85s both;
+}
+.footer-flames {
+  font-size: 2rem;
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+.fl { animation: flameDance 1s ease-in-out infinite alternate; display:inline-block; }
+.fl:nth-child(2) { animation-delay:.2s; }
+.fl:nth-child(3) { animation-delay:.4s; }
+@keyframes flameDance {
+  from { transform: scaleY(1) rotate(-5deg); }
+  to   { transform: scaleY(1.25) rotate(5deg); }
+}
+.footer-text {
+  font-family: 'Bangers', cursive;
+  font-size: 1.1rem;
+  color: #fff;
+  letter-spacing: 3px;
+  text-shadow: 2px 2px 6px rgba(0,0,0,.35);
+}
+.footer-sub {
+  font-size: .78rem;
+  font-weight: 800;
+  color: rgba(255,255,255,.7);
+  margin-top: 4px;
+  letter-spacing: 1px;
+}
+
+/* ══ ANIMATION DELAYS ══ */
+.card:nth-child(1) { animation-delay: .15s; }
+.card:nth-child(2) { animation-delay: .28s; }
+.card:nth-child(3) { animation-delay: .41s; }
+
+/* ══ RESPONSIVE ══ */
+@media(min-width:481px) {
+  .wrap {
+    box-shadow: 0 0 80px rgba(0,0,0,.45);
+    border-left: 2px solid rgba(255,211,12,.2);
+    border-right: 2px solid rgba(255,211,12,.2);
+  }
+}
+@media(max-width:360px) {
+  .card-main { font-size: 1.35rem; }
+  .cd-num { font-size: 2rem; }
+  .cd-box { min-width: 50px; padding: 8px 10px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══ AUDIO — archivo: audio/cancion.mp3 ══ -->
+<audio id="bgMusic" loop>
+  <source src="audio/cancion.mp3" type="audio/mpeg">
+</audio>
+
+<!-- ══ BOTÓN AUDIO ══ -->
+<button id="audioBtn" onclick="toggleAudio()" title="Música">🔊</button>
+
+<!-- ══ INTRO OVERLAY ══ -->
+<div id="intro">
+  <img src="img/logo.png" alt="Emiliano Cumpleaños 4">
+  <h2>¡PREPÁRATE PARA ARRANCAR!</h2>
+  <p>Emiliano te invita a su gran fiesta</p>
+  <button class="btn-enter" onclick="enter()">🏁 ¡ENTRAR A TODA VELOCIDAD! 🏁</button>
+</div>
+
+
+
+<!-- ══ PAGE ══ -->
+<div class="page">
+  <div class="wrap">
+
+    <!-- ══ HERO ══ -->
+    <div class="hero">
+      <div class="hero-glow"></div>
+
+      <!-- Blaze — izquierda/centro | archivo: img/blaze.png -->
+      <div class="blaze-wrap">
+        <img src="img/blaze.png" alt="Blaze Monster Machine">
+      </div>
+
+      <!-- Liam — frente derecha | archivo: img/liam.png -->
+      <div class="liam-wrap">
+        <img src="img/liam.png" alt="Emiliano piloto">
+      </div>
+
+      <!-- Logo — arriba izquierda | archivo: img/logo.png -->
+      <div class="logo-wrap">
+        <img src="img/logo.png" alt="Logo Emiliano Cumpleaños 4">
+      </div>
+    </div>
+
+    <!-- ══ TICKER — editar frases aquí abajo ══ -->
+    <div class="ticker-band">
+      <div class="ticker-inner">
+        <span class="ticker-item">¡Arrancan los motores, es hora de celebrar!</span>
+        <span class="ticker-item">¡Emiliano cumple cuatro años a máxima velocidad!</span>
+        <span class="ticker-item">¡Activa tu turbo y únete a la carrera!</span>
+        <span class="ticker-item">¡Juntos somos el mejor equipo de la pista!</span>
+        <span class="ticker-item">¡Pilotos a sus posiciones, la fiesta está por comenzar!</span>
+        <!-- Duplicado para loop continuo -->
+        <span class="ticker-item">¡Arrancan los motores, es hora de celebrar!</span>
+        <span class="ticker-item">¡Emiliano cumple cuatro años a máxima velocidad!</span>
+        <span class="ticker-item">¡Activa tu turbo y únete a la carrera!</span>
+        <span class="ticker-item">¡Juntos somos el mejor equipo de la pista!</span>
+        <span class="ticker-item">¡Pilotos a sus posiciones, la fiesta está por comenzar!</span>
+      </div>
+    </div>
+
+    <!-- ══ CONTENIDO ══ -->
+    <div class="content">
+
+      <!-- FECHA -->
+      <div class="card info-card" style="animation-delay:.15s">
+        <div class="card-icon">📅</div>
+        <div class="card-accent"></div>
+        <div class="card-body">
+          <div class="card-eyebrow">⚡ La carrera arranca el</div>
+          <div class="card-main">Sábado 2 de Mayo</div>   <!-- ← editar fecha -->
+          <div class="card-sub">¡Marca el día en tu calendario, piloto!</div>
+        </div>
+      </div>
+
+      <!-- HORA -->
+      <div class="card info-card" style="animation-delay:.28s">
+        <div class="card-icon">🕛</div>
+        <div class="card-accent"></div>
+        <div class="card-body">
+          <div class="card-eyebrow">⚡ Hora de encender motores</div>
+          <div class="card-main">3:00 p.m.</div>           <!-- ← editar hora -->
+          <div class="card-sub">¡No llegues tarde al arranque, campeón!</div>
+        </div>
+      </div>
+
+      <!-- LUGAR -->
+      <div class="card info-card" style="animation-delay:.41s">
+        <div class="card-icon">📍</div>
+        <div class="card-accent"></div>
+        <div class="card-body">
+          <div class="card-eyebrow">⚡ Pista de aterrizaje</div>
+          <div class="card-main">Villas del Campo</div>    <!-- ← editar lugar -->
+          <div class="card-sub">Interior Las Eucarias · Área Verde</div>
+        </div>
+      </div>
+
+      <!-- BOTÓN MAPA — editar href con tu link de Google Maps -->
+      <a href="https://maps.app.goo.gl/UzmxkDavAkvrhie16" target="_blank" class="map-btn">
+        <span class="map-icon">🗺️</span>
+        ¡VER RUTA EN MAPS!
+      </a>
+
+      <!-- CUENTA REGRESIVA -->
+      <div class="countdown-card">
+        <div class="cd-title">⚡ CUENTA REGRESIVA PARA LA FIESTA ⚡</div>
+        <div class="cd-grid">
+          <div class="cd-box"><div class="cd-num" id="cd-d">--</div><div class="cd-lbl">Días</div></div>
+          <div class="cd-box"><div class="cd-num" id="cd-h">--</div><div class="cd-lbl">Horas</div></div>
+          <div class="cd-box"><div class="cd-num" id="cd-m">--</div><div class="cd-lbl">Min</div></div>
+          <div class="cd-box"><div class="cd-num" id="cd-s">--</div><div class="cd-lbl">Seg</div></div>
+        </div>
+      </div>
+
+      <!-- FOOTER -->
+      <div class="footer">
+        <div class="footer-flames">
+          <span class="fl">🏁</span><span class="fl">🚥</span><span class="fl">🏁</span>
+        </div>
+        <div class="footer-text">¡CON TODO EL AMOR PARA EMILIANO!</div>  <!-- ← editar -->
+        <div class="footer-sub">4 años de pura velocidad y alegría 🏆</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+// ── INTRO ──
+function enter() {
+  document.getElementById('bgMusic').play().catch(()=>{});
+  playing = true;
+  document.getElementById('audioBtn').textContent = '🔊';
+  document.getElementById('intro').classList.add('gone');
+}
+
+// ── AUDIO ──
+let playing = false;
+function toggleAudio() {
+  const m = document.getElementById('bgMusic');
+  if (playing) {
+    m.pause();
+    document.getElementById('audioBtn').textContent = '🔇';
+    playing = false;
+  } else {
+    m.play().catch(()=>{});
+    document.getElementById('audioBtn').textContent = '🔊';
+    playing = true;
+  }
+}
+
+// ── COUNTDOWN — cambiar fecha aquí ──
+function tick() {
+  const target = new Date('2026-05-02T15:00:00'); // ← EDITAR FECHA/HORA
+  const now = new Date();
+  const diff = target - now;
+
+  if (diff <= 0) {
+    ['cd-d','cd-h','cd-m','cd-s'].forEach((id,i) => {
+      document.getElementById(id).textContent = ['🎉','🔥','🎂','🏁'][i];
+    });
+    return;
+  }
+
+  const d  = Math.floor(diff / 86400000);
+  const h  = Math.floor((diff % 86400000) / 3600000);
+  const mn = Math.floor((diff % 3600000) / 60000);
+  const s  = Math.floor((diff % 60000) / 1000);
+
+  document.getElementById('cd-d').textContent = String(d).padStart(2,'0');
+  document.getElementById('cd-h').textContent = String(h).padStart(2,'0');
+  document.getElementById('cd-m').textContent = String(mn).padStart(2,'0');
+  document.getElementById('cd-s').textContent = String(s).padStart(2,'0');
+}
+tick();
+setInterval(tick, 1000);
+</script>
+</body>
+</html>
