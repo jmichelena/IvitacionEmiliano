@@ -204,7 +204,7 @@ html, body {
 /* ── BLAZE truck ── */
 .blaze-wrap {
   position: absolute;
-  bottom: 50px;       /* ← subir/bajar Blaze */
+  bottom: 20px;       /* ← subir/bajar Blaze */
   left: -5%;          /* ← mover izquierda/derecha */
   width: 115%;         /* ← tamaño */
   z-index: 2;
@@ -492,6 +492,20 @@ html, body {
   .cd-num { font-size: 2rem; }
   .cd-box { min-width: 50px; padding: 8px 10px; }
 }
+
+@media (max-width: 480px) {
+
+  
+
+  .blaze-wrap {
+    opacity: 0.95; /* leve transparencia */
+  }
+
+  .logo-wrap {
+    z-index: 10; /* siempre encima */
+  }
+
+}
 </style>
 </head>
 <body>
@@ -670,6 +684,13 @@ function tick() {
 }
 tick();
 setInterval(tick, 1000);
+
+
+
 </script>
 </body>
+
+
 </html>
+
+
